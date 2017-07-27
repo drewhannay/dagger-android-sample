@@ -13,12 +13,12 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 import javax.inject.Inject;
 
-public class AppInjector {
+public class ActivityAndFragmentAutoInjector {
 
     @Inject
-    public AppInjector() {}
+    public ActivityAndFragmentAutoInjector() {}
 
-    public void inject(Application application) {
+    public void setup(Application application) {
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
@@ -47,7 +47,7 @@ public class AppInjector {
 
     private void handleActivity(Activity activity) {
         if (activity instanceof HasSupportFragmentInjector) {
-            // this works because we're using support fragments, so it's okay to inject after Activity.super.onCreate()
+            // this works because we're using support fragments, so it's okay to setup after Activity.super.onCreate()
             // See https://github.com/googlesamples/android-architecture-components/issues/99
             AndroidInjection.inject(activity);
         }

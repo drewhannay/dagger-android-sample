@@ -3,7 +3,7 @@ package com.drewhannay.daggerandroiddemo;
 import android.app.Activity;
 import android.app.Application;
 import android.support.test.InstrumentationRegistry;
-import com.drewhannay.daggerandroiddemo.di.AppInjector;
+import com.drewhannay.daggerandroiddemo.di.ActivityAndFragmentAutoInjector;
 import com.drewhannay.daggerandroiddemo.di.DaggerTestAppComponent;
 import com.drewhannay.daggerandroiddemo.di.TestAppComponent;
 import dagger.android.AndroidInjector;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class TestApplication extends Application implements HasActivityInjector {
 
     @Inject DispatchingAndroidInjector<Activity> injector;
-    @Inject AppInjector appInjector;
+    @Inject ActivityAndFragmentAutoInjector autoInjector;
 
     private TestAppComponent appComponent;
 
@@ -28,7 +28,7 @@ public class TestApplication extends Application implements HasActivityInjector 
 
         super.onCreate();
 
-        appInjector.inject(this);
+        autoInjector.setup(this);
     }
 
     public static TestAppComponent appComponent() {
